@@ -23,6 +23,7 @@ def noise_calc(img, snr, mode=False, p=0.0):
         noise = random_noise(img, mode="s&p", amount=p) * 255
         noise_img[noise == 0] = 0
         noise_img[noise == 255] = 255
+        print("a")
 
     return noise_img, noise, np.var(noise_img), np.var(noise)
 
@@ -55,12 +56,11 @@ def draw_image(img, plt_num, title):
 
 
 def print_info(title, original_img, noised_img, filtered_median, filtered_linear):
-    print(f"-----------------{title}-------------------")
-    print(f"Variance of filtration error for median: {np.var(filtered_median - original_img)}")
-    print(f"Variance of filtration error for linear: {np.var(filtered_linear - original_img)}")
-    print(f"Noise filtration coefficient for median: {calc_kc(original_img, noised_img, filtered_median)}")
-    print(f"Noise filtration coefficient for linear: {calc_kc(original_img, noised_img, filtered_linear)}")
-    print(f"-----------------------------------------------------")
+    print(f"{title}")
+    print(f"дисперсия ошибок фильтрации для медианого фильтра: {np.var(filtered_median - original_img)}")
+    print(f"дисперсия ошибок фильтрации для линейного фильтра: {np.var(filtered_linear - original_img)}")
+    print(f"коэф подавления шума для медианого: фильтра {calc_kc(original_img, noised_img, filtered_median)}")
+    print(f"коэф подавления шума для линейного фильтра: {calc_kc(original_img, noised_img, filtered_linear)}")
 
 
 if __name__ == '__main__':
